@@ -542,6 +542,10 @@ gst_core_audio_get_channel_layout (GstCoreAudio * core_audio, gboolean outer)
   return layout;
 }
 
+#define STEREO_CHANNEL_MASK \
+  (GST_AUDIO_CHANNEL_POSITION_MASK (FRONT_LEFT) | \
+   GST_AUDIO_CHANNEL_POSITION_MASK (FRONT_RIGHT))
+
 GstCaps *
 gst_core_audio_probe_caps (GstCoreAudio * core_audio, GstCaps * in_caps)
 {
@@ -624,8 +628,7 @@ gst_core_audio_probe_caps (GstCoreAudio * core_audio, GstCaps * in_caps)
        * and the rest will be dropped. */
 
       if (channels == 1 || (channels == 2 &&
-              (channel_mask & GST_AUDIO_CHANNEL_POSITION_MASK (FRONT_LEFT)) &&
-              (channel_mask & GST_AUDIO_CHANNEL_POSITION_MASK (FRONT_RIGHT)))) {
+              (channel_mask == 0 || channel_mask == STEREO_CHANNEL_MASK))) {
 
         /* If have stereo channels, then also offer mono since CoreAudio
          * upmixes it. If mono, then also offer stereo since CoreAudio
