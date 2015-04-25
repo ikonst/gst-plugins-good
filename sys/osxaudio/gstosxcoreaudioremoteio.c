@@ -108,6 +108,7 @@ gst_core_audio_initialize_impl (GstCoreAudio * core_audio,
   *frame_size = 4196;
 
   GST_DEBUG_OBJECT (core_audio, "osxbuf ring buffer acquired");
+  ret = TRUE;
 
 done:
   /* Format changed, initialise the AudioUnit again */
