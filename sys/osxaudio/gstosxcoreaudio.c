@@ -656,8 +656,7 @@ gst_core_audio_probe_caps (GstCoreAudio * core_audio, GstCaps * in_caps)
 
         if (channels == 1)
           gst_structure_set (out_s, "channel-mask", GST_TYPE_BITMASK,
-              GST_AUDIO_CHANNEL_POSITION_FRONT_LEFT |
-              GST_AUDIO_CHANNEL_POSITION_FRONT_RIGHT, NULL);
+              STEREO_CHANNEL_MASK, NULL);
       }
 
       gst_caps_append_structure (caps, out_s);
